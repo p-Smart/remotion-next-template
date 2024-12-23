@@ -1,6 +1,5 @@
 import { Player } from "@remotion/player";
 import type { NextPage } from "next";
-import Head from "next/head";
 import React, { useMemo, useState } from "react";
 import { Main } from "../remotion/MyComp/Main";
 import {
