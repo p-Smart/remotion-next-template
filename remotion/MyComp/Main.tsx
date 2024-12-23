@@ -1,4 +1,4 @@
-import { z } from "zod";
+import React from "react";
 import {
   AbsoluteFill,
   Sequence,
@@ -6,25 +6,23 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { CompositionProps } from "../../types/constants";
-import { NextLogo } from "./NextLogo";
-import { loadFont, fontFamily } from "@remotion/google-fonts/Inter";
-import React, { useMemo } from "react";
 import { Rings } from "./Rings";
-import { TextFade } from "./TextFade";
+import {
+  ISequence,
+  SpotlightSequences,
+} from "../components/SpotlightSequences";
+import { TextFade } from "./TextAnimations/TextFade";
+import { loadFont, fontFamily } from "@remotion/google-fonts/Montserrat";
+import { Text } from "@chakra-ui/react";
 
 loadFont();
 
-const container: React.CSSProperties = {
-  backgroundColor: "white",
-};
+interface IMain {
+  fullName: string;
+  sequences: ISequence[];
+}
 
-const logo: React.CSSProperties = {
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-export const Main = ({ title }: z.infer<typeof CompositionProps>) => {
+export const Main: React.FC<IMain> = ({ fullName, sequences }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -41,23 +39,42 @@ export const Main = ({ title }: z.infer<typeof CompositionProps>) => {
     delay: transitionStart,
   });
 
-  const titleStyle: React.CSSProperties = useMemo(() => {
-    return { fontFamily, fontSize: 70 };
-  }, []);
-
   return (
-    <AbsoluteFill style={container}>
-      <Sequence durationInFrames={transitionStart + transitionDuration}>
+    <AbsoluteFill>
+      {/* First Sequence: Display the Logo and Title */}
+      <Sequence durationInFrames={120}>
         <Rings outProgress={logoOut} />
-        <AbsoluteFill style={logo}>
-          <NextLogo outProgress={logoOut} />
+        <AbsoluteFill
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            background:
+              "linear-gradient(120deg, #000000, #222222, #555555, #111111)",
+            color: "#e0fa04",
+            fontFamily,
+            textAlign: "center",
+          }}
+        >
+          <TextFade>
+            <Text fontSize={90} mb={100}>
+              <b>Odyssey</b>&nbsp;
+              <Text as="sup" fontSize={24}>
+                Class of 2025
+              </Text>
+            </Text>
+            <Text fontSize={50} mb={10}>
+              Spotlighting...
+            </Text>
+            <Text fontSize={50} fontWeight="600">
+              {fullName}
+            </Text>
+          </TextFade>
         </AbsoluteFill>
       </Sequence>
-      <Sequence from={transitionStart + transitionDuration / 2}>
-        <Rings outProgress={logoOut} />
-        <TextFade>
-          <h1 style={titleStyle}>{title}</h1>
-        </TextFade>
+
+      {/* Second Sequence: Spotlight Video Sections */}
+      <Sequence from={120}>
+        <SpotlightSequences data={sequences} />
       </Sequence>
     </AbsoluteFill>
   );

@@ -6,7 +6,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <title>Odyssey Class Spotlight</title>
-        <meta name="description" content="Remotion and Next.js" />
+        <meta name="description" content="Odyssey Class of 2025" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
