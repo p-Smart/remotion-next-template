@@ -174,7 +174,7 @@ const Home: NextPage = () => {
           autoPlay
           loop
           allowFullscreen={true}
-          controls
+          // controls
         />
       </Flex>
     </Box>
