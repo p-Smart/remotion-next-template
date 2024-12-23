@@ -48,12 +48,13 @@ export const Main = ({ title }: z.infer<typeof CompositionProps>) => {
   return (
     <AbsoluteFill style={container}>
       <Sequence durationInFrames={transitionStart + transitionDuration}>
-        <Rings outProgress={logoOut}></Rings>
+        <Rings outProgress={logoOut} />
         <AbsoluteFill style={logo}>
-          <NextLogo outProgress={logoOut}></NextLogo>
+          <NextLogo outProgress={logoOut} />
         </AbsoluteFill>
       </Sequence>
       <Sequence from={transitionStart + transitionDuration / 2}>
+        <Rings outProgress={logoOut} />
         <TextFade>
           <h1 style={titleStyle}>{title}</h1>
         </TextFade>

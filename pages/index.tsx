@@ -12,27 +12,6 @@ import {
   VIDEO_WIDTH,
 } from "../types/constants";
 import { z } from "zod";
-import { RenderControls } from "../components/RenderControls";
-import { Tips } from "../components/Tips/Tips";
-import { Spacing } from "../components/Spacing";
-
-const container: React.CSSProperties = {
-  maxWidth: 768,
-  margin: "auto",
-  marginBottom: 20,
-};
-
-const outer: React.CSSProperties = {
-  borderRadius: "var(--geist-border-radius)",
-  overflow: "hidden",
-  boxShadow: "0 0 200px rgba(0, 0, 0, 0.15)",
-  marginBottom: 40,
-  marginTop: 60,
-};
-
-const player: React.CSSProperties = {
-  width: "100%",
-};
 
 const Home: NextPage = () => {
   const [text, setText] = useState<string>(defaultMyCompProps.title);
@@ -45,17 +24,8 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>Remotion and Next.js</title>
-        <meta name="description" content="Remotion and Next.js" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div style={container}>
-        <div className="cinematics" style={outer}>
+      <div>
+        <div>
           <Player
             component={Main}
             inputProps={inputProps}
@@ -63,22 +33,12 @@ const Home: NextPage = () => {
             fps={VIDEO_FPS}
             compositionHeight={VIDEO_HEIGHT}
             compositionWidth={VIDEO_WIDTH}
-            style={player}
-            controls
+            style={{ width: "100%", height: "97vh" }}
             autoPlay
             loop
+            allowFullscreen={false}
           />
         </div>
-        <RenderControls
-          text={text}
-          setText={setText}
-          inputProps={inputProps}
-        ></RenderControls>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Spacing></Spacing>
-        <Tips></Tips>
       </div>
     </div>
   );
